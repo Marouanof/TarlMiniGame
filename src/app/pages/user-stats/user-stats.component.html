@@ -1,0 +1,90 @@
+<div class="max-w-4xl mx-auto py-12 space-y-12">
+  <h2 class="text-2xl font-bold text-center text-green-700 mb-8">Statistiques Générales</h2>
+
+  <!-- Section Utilisateurs -->
+  <div>
+    <h3 class="text-xl font-bold text-green-700 mb-4">Utilisateurs</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-purple-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-3xl font-bold text-purple-700">{{ stats.studentsWithResults + stats.studentsWithoutResults }}</div>
+        <div class="text-purple-800 mt-2">Total élèves</div>
+      </div>
+      <div class="bg-pink-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-3xl font-bold text-pink-700">{{ stats.teachersWithNoTest + (stats.maxStudentsPerTeacher ? 1 : 0) }}</div>
+        <div class="text-pink-800 mt-2">Total enseignants</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Enseignants -->
+  <div>
+    <h3 class="text-xl font-bold text-green-700 mb-4">Enseignants</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-blue-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-lg font-semibold text-blue-700">Élèves par enseignant</div>
+        <div class="text-blue-800 mt-2">Moyenne : <span class="font-bold">{{ stats.avgStudentsPerTeacher }}</span></div>
+        <div class="text-blue-800">Max : <span class="font-bold">{{ stats.maxStudentsPerTeacher }}</span></div>
+        <div class="text-blue-800">Min : <span class="font-bold">{{ stats.minStudentsPerTeacher }}</span></div>
+      </div>
+      <div class="bg-yellow-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-lg font-semibold text-yellow-700">Enseignants sans test publié</div>
+        <div class="text-yellow-800 mt-2 text-3xl font-bold">{{ stats.teachersWithNoTest }}</div>
+      </div>
+      <div class="bg-green-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-lg font-semibold text-green-700">Enseignant avec le plus d'élèves</div>
+        <div class="text-green-800 mt-2">{{ stats.topTeacherName }}</div>
+        <div class="text-green-900 text-3xl font-bold">{{ stats.topTeacherCount }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Élèves -->
+  <div>
+    <h3 class="text-xl font-bold text-green-700 mb-4">Élèves</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-purple-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-3xl font-bold text-purple-700">{{ stats.studentsWithResults }}</div>
+        <div class="text-purple-800 mt-2">Ayant passé au moins un test</div>
+      </div>
+      <div class="bg-red-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-3xl font-bold text-red-700">{{ stats.studentsWithoutResults }}</div>
+        <div class="text-red-800 mt-2">N'ayant passé aucun test</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Tests -->
+  <div>
+    <h3 class="text-xl font-bold text-green-700 mb-4">Tests</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-indigo-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-3xl font-bold text-indigo-700">{{ stats.tests }}</div>
+        <div class="text-indigo-800 mt-2">Tests créés</div>
+      </div>
+      <div class="bg-yellow-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-3xl font-bold text-yellow-700">{{ stats.draftTests }}</div>
+        <div class="text-yellow-800 mt-2">Tests en brouillon</div>
+      </div>
+      <div class="bg-green-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-3xl font-bold text-green-700">{{ stats.activeTests }}</div>
+        <div class="text-green-800 mt-2">Tests actifs</div>
+      </div>
+      <div class="bg-blue-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-3xl font-bold text-blue-700">{{ stats.avgScore }}%</div>
+        <div class="text-blue-800 mt-2">Score moyen global</div>
+      </div>
+      <div class="bg-pink-50 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-3xl font-bold text-pink-700">{{ stats.testResults }}</div>
+        <div class="text-pink-800 mt-2">Résultats de tests</div>
+      </div>
+      <div class="bg-green-100 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-3xl font-bold text-green-800">{{ stats.testsAbove80 }}</div>
+        <div class="text-green-900 mt-2">Tests &gt; 80% réussite</div>
+      </div>
+      <div class="bg-orange-100 rounded-xl p-6 flex flex-col items-center shadow">
+        <div class="text-3xl font-bold text-orange-700">{{ stats.testsBelow50 }}</div>
+        <div class="text-orange-800 mt-2">Tests &lt; 50% réussite</div>
+      </div>
+    </div>
+  </div>
+</div> 

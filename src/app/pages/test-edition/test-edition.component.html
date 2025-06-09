@@ -1,0 +1,51 @@
+<div class="test-edition-container">
+  <h2>Modifier le Test</h2>
+
+  <form [formGroup]="testForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="testName">Nom du test</label>
+      <input type="text" id="testName" formControlName="testName" required>
+      <div class="error-message" *ngIf="testForm.get('testName')?.invalid && testForm.get('testName')?.touched">
+        Le nom du test est requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="etatDeTest">État du test</label>
+      <select id="etatDeTest" formControlName="etatDeTest" required>
+        <option value="Actif">Actif</option>
+        <option value="Inactif">Inactif</option>
+      </select>
+      <div class="error-message" *ngIf="testForm.get('etatDeTest')?.invalid && testForm.get('etatDeTest')?.touched">
+        L'état du test est requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="grade">Niveau</label>
+      <select id="grade" formControlName="grade" required>
+        <option value="1">Grade 1</option>
+        <option value="2">Grade 2</option>
+        <option value="3">Grade 3</option>
+        <option value="4">Grade 4</option>
+        <option value="5">Grade 5</option>
+        <option value="6">Grade 6</option>
+      </select>
+      <div class="error-message" *ngIf="testForm.get('grade')?.invalid && testForm.get('grade')?.touched">
+        Le niveau est requis
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="testForm.invalid">
+      Modifier le test
+    </button>
+
+    <div class="success-message" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div> 

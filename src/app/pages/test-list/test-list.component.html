@@ -1,0 +1,181 @@
+<div class="test-list flex flex-col md:flex-row gap-8 p-6 max-w-7xl mx-auto">
+
+  <!-- Colonne gauche : Liste des tests -->
+  <div class="flex-1 min-w-[300px]">
+    <h2 class="text-3xl font-semibold mb-6">Vos Tests</h2>
+
+    <div class="filters mb-6">
+      <select
+        [(ngModel)]="selectedState"
+        (change)="applyFilter()"
+        class="border border-gray-300 rounded-md px-4 py-2 w-full max-w-xs focus:outline-none focus:ring-2 focus:ring-green-500"
+      >
+        <option value="">Tous les tests</option>
+        <option value="active">Tests actifs</option>
+        <option value="inactive">Tests inactifs</option>
+      </select>
+    </div>
+
+    <div *ngIf="loading" class="text-gray-500 italic">Chargement des tests...</div>
+
+    <div *ngIf="!loading && filteredTests.length === 0" class="text-center text-gray-600 italic">
+      Aucun test trouvé
+    </div>
+
+    <div *ngIf="!loading && filteredTests.length > 0" class="grid gap-6">
+      <div
+        class="test-card border rounded-lg p-4 shadow hover:shadow-lg transition flex flex-col"
+        *ngFor="let test of filteredTests"
+      >
+        <div class="test-header flex justify-between items-center mb-2">
+          <h3 class="text-xl font-semibold">{{ test.testName }}</h3>
+          <span
+            class="badge px-3 py-1 rounded-full text-sm font-semibold"
+            [ngClass]="{
+              'bg-green-100 text-green-800': test.isActive,
+              'bg-red-100 text-red-800': !test.isActive
+            }"
+          >
+            {{ test.isActive ? 'Actif' : 'Inactif' }}
+          </span>
+        </div>
+        <p class="grade text-gray-700 mb-4">Niveau: {{ test.grade }}</p>
+        <div class="actions mt-auto flex gap-3">
+          <button
+            class="edit-btn bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+            (click)="editTest(test)"
+          >
+            Modifier
+          </button>
+          <button
+            class="delete-btn bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+            (click)="confirmDelete(test)"
+          >
+            Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Colonne droite : Formulaire d'édition (visible seulement si editingTest) -->
+  <div class="flex-1 min-w-[300px]" *ngIf="editingTest">
+    <h3 class="text-2xl font-bold mb-6 text-green-700 text-center">Modifier le Test</h3>
+
+    <form [formGroup]="testForm" (ngSubmit)="onSubmit()" class="space-y-6 bg-white p-6 rounded-lg shadow-md border border-gray-200">
+
+      <div>
+        <label for="testName" class="block mb-2 font-semibold text-gray-700">Nom du test</label>
+        <input
+          type="text"
+          id="testName"
+          formControlName="testName"
+          required
+          class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+          placeholder="Entrez le nom du test"
+        >
+        <div
+          *ngIf="testForm.get('testName')?.invalid && testForm.get('testName')?.touched"
+          class="text-red-600 mt-1 text-sm font-medium"
+        >
+          Le nom du test est requis
+        </div>
+      </div>
+
+      <div>
+        <label for="etatDeTest" class="block mb-2 font-semibold text-gray-700">État du test</label>
+        <select
+          id="etatDeTest"
+          formControlName="etatDeTest"
+          required
+          class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+        >
+          <option value="Actif">Actif</option>
+          <option value="Inactif">Inactif</option>
+        </select>
+        <div
+          *ngIf="testForm.get('etatDeTest')?.invalid && testForm.get('etatDeTest')?.touched"
+          class="text-red-600 mt-1 text-sm font-medium"
+        >
+          L'état du test est requis
+        </div>
+      </div>
+
+      <div>
+        <label for="grade" class="block mb-2 font-semibold text-gray-700">Niveau</label>
+        <select
+          id="grade"
+          formControlName="grade"
+          required
+          class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+        >
+          <option value="1">Grade 1</option>
+          <option value="2">Grade 2</option>
+          <option value="3">Grade 3</option>
+          <option value="4">Grade 4</option>
+          <option value="5">Grade 5</option>
+          <option value="6">Grade 6</option>
+        </select>
+        <div
+          *ngIf="testForm.get('grade')?.invalid && testForm.get('grade')?.touched"
+          class="text-red-600 mt-1 text-sm font-medium"
+        >
+          Le niveau est requis
+        </div>
+      </div>
+
+      <div class="flex justify-between mt-8">
+        <button
+          type="submit"
+          [disabled]="testForm.invalid"
+          class="bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition"
+        >
+          Enregistrer
+        </button>
+
+        <button
+          type="button"
+          (click)="cancelEdit()"
+          class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold py-3 px-8 rounded-lg transition"
+        >
+          Annuler
+        </button>
+      </div>
+
+      <div *ngIf="successMessage" class="mt-6 text-green-700 font-semibold text-center">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="mt-6 text-red-700 font-semibold text-center">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<!-- Modal de suppression -->
+<div *ngIf="testToDelete" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+    <h3 class="text-xl font-semibold text-gray-900 mb-4">Confirmer la suppression</h3>
+    <p class="text-gray-600 mb-6">
+      Êtes-vous sûr de vouloir supprimer le test "{{ testToDelete.testName }}" ? 
+      Cette action est irréversible et supprimera également tous les résultats associés.
+    </p>
+    <div class="flex justify-end space-x-4">
+      <button 
+        (click)="cancelDelete()"
+        class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors duration-200"
+      >
+        Annuler
+      </button>
+      <button 
+        (click)="deleteTest()"
+        class="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors duration-200"
+      >
+        Supprimer
+      </button>
+    </div>
+  </div>
+</div>
+
+

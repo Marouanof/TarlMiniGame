@@ -1,0 +1,91 @@
+<div class="w-64 bg-white rounded-2xl shadow-lg p-4 space-y-3">
+  <!-- Boutons pour les enseignants -->
+  <button
+    *ngIf="userRole === 'Teacher'"
+    (click)="select('student-register')"
+    class="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 bg-green-50 hover:bg-green-100 hover:text-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-400"
+  >
+    <span class="text-lg">➕</span>
+    <span class="font-medium">Register Student</span>
+  </button>
+
+  <button
+    *ngIf="userRole === 'Teacher'"
+    (click)="select('student-list')"
+    class="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 bg-green-50 hover:bg-green-100 hover:text-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-400"
+  >
+    <span class="text-lg">📋</span>
+    <span class="font-medium">View Students</span>
+  </button>
+
+  <button
+    *ngIf="userRole === 'Teacher'"
+    (click)="select('test-create')"
+    class="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 bg-green-50 hover:bg-green-100 hover:text-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-400"
+  >
+    <span class="text-lg">📝</span>
+    <span class="font-medium">Create Test</span>
+  </button>
+
+  <button
+    *ngIf="userRole === 'Teacher'"
+    (click)="select('test-list')"
+    class="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 bg-green-50 hover:bg-green-100 hover:text-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-400"
+  >
+    <span class="text-lg">📘</span>
+    <span class="font-medium">View Tests</span>
+  </button>
+
+  <button
+    *ngIf="userRole === 'Teacher'"
+    (click)="select('test-results')"
+    class="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 bg-green-50 hover:bg-green-100 hover:text-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-400"
+  >
+    <span class="text-lg">📊</span>
+    <span class="font-medium">Résultats des Tests</span>
+  </button>
+
+  <!-- <li (click)="select('test-results')">Test Results</li> -->
+
+  <button
+    *ngIf="userRole === 'Teacher'"
+    (click)="select('teacher-profile')"
+    class="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 bg-green-50 hover:bg-green-100 hover:text-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-400"
+  >
+    <span class="text-lg">👤</span>
+    <span class="font-medium">Mon Profil</span>
+  </button>
+
+  <!-- Boutons pour administrateurs et directeurs -->
+  <button
+    *ngIf="userRole === 'Administrator' || userRole === 'Principal'"
+    (click)="select('user-list')"
+    class="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 bg-green-50 hover:bg-green-100 hover:text-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-400"
+  >
+    <span class="text-lg">📋</span>
+    <span class="font-medium">View Pending Users</span>
+  </button>
+
+  <button
+    *ngIf="userRole === 'Administrator' || userRole === 'Principal'"
+    (click)="select('parent-create')"
+    class="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 bg-green-50 hover:bg-green-100 hover:text-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-400"
+  >
+    <span class="text-lg">👨‍👩‍👧</span>
+    <span class="font-medium">Create Parent Account</span>
+  </button>
+
+  <button
+    *ngIf="userRole === 'Administrator' || userRole === 'Principal'"
+    (click)="select('user-stats')"
+    class="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 bg-green-50 hover:bg-green-100 hover:text-green-700 transition focus:outline-none focus:ring-2 focus:ring-green-400"
+  >
+    <span class="text-lg">📈</span>
+    <span class="font-medium">Statistiques Générales</span>
+  </button>
+</div>
+
+
+
+
+  

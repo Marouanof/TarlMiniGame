@@ -1,0 +1,15 @@
+<nav style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #fff; border-bottom: 1px solid #eee;">
+  <a routerLink="/home" style="font-weight: bold; font-size: 1.5rem; text-decoration: none; color: #222;">TaRL Mini-Games</a>
+  <div *ngIf="publicMode">
+    <a routerLink="/login" style="margin-right: 16px; text-decoration: none; color: #222;">Connexion</a>
+    <a routerLink="/register" style="text-decoration: none; color: #222;">S'inscrire</a>
+  </div>
+  <div *ngIf="!publicMode">
+    <button (click)="toggleMenu()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer;">⚙</button>
+    <div *ngIf="menuOpen" style="position: absolute; right: 0; margin-top: 8px; background: #fff; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+      <button (click)="logout()" style="padding: 8px 16px; width: 100%; background: none; border: none; text-align: left; cursor: pointer;">Log Out</button>
+    </div>
+  </div>
+</nav>
+
+  

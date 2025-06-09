@@ -1,0 +1,61 @@
+<div class="student-registration max-w-md mx-auto bg-white rounded-2xl shadow-lg p-6 space-y-4">
+  <h2 class="text-2xl font-bold text-green-700 mb-4">Student Registration</h2>
+
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="space-y-4">
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">First Name</label>
+      <input type="text" formControlName="firstName" required
+             class="mt-1 w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"/>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Last Name</label>
+      <input type="text" formControlName="lastName" required
+             class="mt-1 w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"/>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Birth Date</label>
+      <input type="date" formControlName="birthday" required
+             class="mt-1 w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"/>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Grade</label>
+      <select formControlName="schoolGrade"
+              class="mt-1 w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none">
+        <option value="1">Grade 1</option>
+        <option value="2">Grade 2</option>
+        <option value="3">Grade 3</option>
+        <option value="4">Grade 4</option>
+        <option value="5">Grade 5</option>
+        <option value="6">Grade 6</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Gender</label>
+      <select formControlName="gender"
+              class="mt-1 w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Password (4-digit PIN)</label>
+      <input type="text" formControlName="password" maxlength="4" placeholder="1234"
+             class="mt-1 w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:outline-none"/>
+    </div>
+
+    <button type="submit" [disabled]="studentForm.invalid"
+            class="w-full bg-green-500 text-white py-2 px-4 rounded-xl hover:bg-green-600 transition disabled:opacity-50">
+      Register Student
+    </button>
+
+    <p *ngIf="successMessage" class="text-green-600 font-medium text-center">{{ successMessage }}</p>
+    <p *ngIf="errorMessage" class="text-red-600 font-medium text-center">{{ errorMessage }}</p>
+  </form>
+</div>
+

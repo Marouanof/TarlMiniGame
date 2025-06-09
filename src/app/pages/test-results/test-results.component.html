@@ -1,0 +1,95 @@
+<div class="max-w-7xl mx-auto mt-12 p-6 bg-white rounded-2xl shadow-lg">
+  <h2 class="text-3xl font-extrabold text-center text-green-600 mb-8">Résultats des Tests</h2>
+
+  <div class="flex flex-col md:flex-row justify-center gap-4 mb-8">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Rechercher un élève par nom ou prénom..."
+      class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400"
+    />
+    <select
+      [(ngModel)]="selectedGrade"
+      class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400"
+    >
+      <option value="">Tous les tests</option>
+      <option value="1">Test 1</option>
+      <option value="2">Test 2</option>
+      <option value="3">Test 3</option>
+      <option value="4">Test 4</option>
+      <option value="5">Test 5</option>
+    </select>
+    <select
+      [(ngModel)]="selectedGame"
+      class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400"
+    >
+      <option value="">Tous les jeux</option>
+      <option *ngFor="let game of getAllGames()" [value]="game">{{ formatGameName(game) }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="loading" class="text-center text-gray-500 py-12">
+    <span class="animate-spin inline-block mr-2">⏳</span> Chargement des résultats...
+  </div>
+  <div *ngIf="!loading && (!results || getTests().length === 0)" class="text-center text-gray-400 py-12">
+    Aucun résultat trouvé pour vos tests.
+  </div>
+
+  <div *ngIf="!loading && results && getTests().length > 0" class="space-y-16">
+    <!-- Boucle sur chaque test -->
+    <div *ngFor="let testId of getTests()" class="border-b border-gray-200 pb-12 mb-12 last:border-b-0">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-4">
+        <h3 class="text-2xl font-bold text-green-700">{{ getTestName(testId) }}</h3>
+        <div class="flex flex-wrap gap-4">
+          <div class="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2">
+            <span>👥</span> {{ getStudents(testId).length }} élèves
+          </div>
+          <div class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2">
+            <span>📊</span> Score moyen :
+            <span class="font-bold">{{ calculateTestAverage(testId) }}%</span>
+          </div>
+          <div class="bg-purple-100 text-purple-800 px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-2">
+            <span>🏆</span> Meilleur score :
+            <span class="font-bold">{{ calculateTestBestScore(testId) }}%</span>
+          </div>
+        </div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 shadow rounded-lg">
+          <thead class="bg-green-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-bold text-green-700 uppercase tracking-wider">Élève</th>
+              <th class="px-6 py-3 text-left text-xs font-bold text-green-700 uppercase tracking-wider">Score moyen</th>
+              <th class="px-6 py-3 text-left text-xs font-bold text-green-700 uppercase tracking-wider">Détail des jeux</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-100">
+            <tr *ngFor="let studentId of getStudents(testId)">
+              <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+                {{ getStudentName(studentId) }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="text-lg font-bold text-green-700">{{ calculateAverageScore(testId, studentId) }}%</span>
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex flex-wrap gap-4">
+                  <div *ngFor="let gameKey of getGames(testId, studentId)" class="bg-gray-50 rounded-lg p-4 shadow-sm min-w-[220px]">
+                    <div class="font-semibold text-green-700 mb-2">{{ formatGameName(gameKey) }}</div>
+                    <div class="text-sm text-gray-700">
+                      <div>✅ Correctes : <span class="font-bold text-green-600">{{ results[testId][studentId][gameKey].correctAnswers }}</span></div>
+                      <div>❌ Incorrectes : <span class="font-bold text-red-600">{{ results[testId][studentId][gameKey].wrongAnswers }}</span></div>
+                      <div>🎯 Score : <span class="font-bold">{{ results[testId][studentId][gameKey].score }}%</span></div>
+                      <div>🕒 Durée : <span class="font-bold">{{ calculateDuration(results[testId][studentId][gameKey].startedAt, results[testId][studentId][gameKey].finishedAt) }}</span></div>
+                      <div>📅 Début : <span class="font-medium">{{ formatDate(results[testId][studentId][gameKey].startedAt) }}</span></div>
+                      <div>📅 Fin : <span class="font-medium">{{ formatDate(results[testId][studentId][gameKey].finishedAt) }}</span></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> 

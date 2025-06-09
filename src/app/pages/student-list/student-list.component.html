@@ -1,0 +1,120 @@
+<div class="max-w-5xl mx-auto mt-12 p-6 bg-white rounded-2xl shadow-lg">
+  <h2 class="text-3xl font-extrabold text-center text-green-600 mb-6">Liste des Étudiants</h2>
+
+  <!-- Messages de succès/erreur -->
+  <div *ngIf="successMessage" class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+    {{ errorMessage }}
+  </div>
+
+  <div class="flex flex-col md:flex-row gap-4 mb-6">
+    <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="applyFilters()" placeholder="Rechercher par nom..."
+      class="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/3 focus:outline-none focus:ring-2 focus:ring-green-400" />
+    <select [(ngModel)]="selectedGrade" (ngModelChange)="applyFilters()"
+      class="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/4 focus:outline-none focus:ring-2 focus:ring-green-400">
+      <option value="">Tous les niveaux</option>
+      <option value="1">Grade 1</option>
+      <option value="2">Grade 2</option>
+      <option value="3">Grade 3</option>
+      <option value="4">Grade 4</option>
+      <option value="5">Grade 5</option>
+      <option value="6">Grade 6</option>
+    </select>
+    <select [(ngModel)]="selectedGender" (ngModelChange)="applyFilters()"
+      class="border border-gray-300 rounded-lg px-4 py-2 w-full md:w-1/4 focus:outline-none focus:ring-2 focus:ring-green-400">
+      <option value="">Tous les genres</option>
+      <option value="Male">Masculin</option>
+      <option value="Female">Féminin</option>
+    </select>
+  </div>
+
+  <div *ngIf="loading" class="text-center text-gray-500 py-6">Chargement des étudiants...</div>
+  <div *ngIf="!loading && filteredStudents.length === 0" class="text-center text-gray-400 py-6">Aucun étudiant trouvé.</div>
+
+  <div *ngIf="!loading && filteredStudents.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div *ngFor="let student of filteredStudents" class="border border-gray-300 rounded-xl p-4 shadow-sm hover:shadow-md transition bg-green-50">
+      <div class="mb-3">
+        <h3 class="text-xl font-semibold text-green-700">{{ student.firstName }} {{ student.lastName }}</h3>
+        <p class="text-gray-600">Date de naissance: <span class="font-medium">{{ student.birthday || 'N/A' }}</span></p>
+        <p class="text-gray-600">Niveau: <span class="font-medium">{{ student.schoolGrade }}</span></p>
+        <p class="text-gray-600">Genre: <span class="font-medium">{{ student.gender }}</span></p>
+      </div>
+      <div class="flex justify-end space-x-3">
+        <button (click)="editStudent(student)" 
+                class="px-3 py-1 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-white transition"
+                title="Modifier l'étudiant">✏️ Modifier</button>
+        <button (click)="deleteStudent(student.uid)" 
+                class="px-3 py-1 rounded-lg bg-red-500 hover:bg-red-600 text-white transition"
+                title="Supprimer l'étudiant">❌ Supprimer</button>
+        <button (click)="generateQRCode(student)" 
+                class="px-3 py-1 rounded-lg bg-blue-500 hover:bg-blue-600 text-white transition"
+                title="Générer le QR Code">🔲 QR</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de modification -->
+  <div *ngIf="editingStudent" class="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+    <div class="bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full">
+      <h3 class="text-2xl font-bold mb-6 text-green-600">Modifier l'Étudiant</h3>
+
+      <form [formGroup]="editForm" (ngSubmit)="saveEdit()" class="space-y-4">
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Prénom</label>
+          <input type="text" formControlName="firstName" required
+                 class="w-full px-4 py-3 border border-green-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Nom</label>
+          <input type="text" formControlName="lastName" required
+                 class="w-full px-4 py-3 border border-green-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Date de naissance</label>
+          <input type="date" formControlName="birthday" required
+                 class="w-full px-4 py-3 border border-green-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition" />
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Niveau</label>
+          <select formControlName="schoolGrade"
+                  class="w-full px-4 py-3 border border-green-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition">
+            <option value="1">Grade 1</option>
+            <option value="2">Grade 2</option>
+            <option value="3">Grade 3</option>
+            <option value="4">Grade 4</option>
+            <option value="5">Grade 5</option>
+            <option value="6">Grade 6</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-gray-700 mb-1">Genre</label>
+          <select formControlName="gender"
+                  class="w-full px-4 py-3 border border-green-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-400 transition">
+            <option value="Male">Masculin</option>
+            <option value="Female">Féminin</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end space-x-3 mt-6">
+          <button type="button" (click)="cancelEdit()"
+                  class="px-4 py-2 rounded-lg bg-gray-500 hover:bg-gray-600 text-white transition">
+            Annuler
+          </button>
+          <button type="submit" [disabled]="editForm.invalid"
+                  class="px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition disabled:bg-green-300">
+            Enregistrer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  

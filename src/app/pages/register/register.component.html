@@ -1,0 +1,80 @@
+<app-nav-bar [publicMode]="true"></app-nav-bar>
+
+<div class="min-h-screen flex items-center justify-center bg-green-50 px-4">
+  <div class="w-full max-w-md bg-white rounded-3xl shadow-xl p-10 font-sans">
+    <h2 class="text-3xl text-center font-bold text-green-600 mb-10">Créer un compte</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+        <input
+          type="text"
+          formControlName="firstName"
+          class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-green-500 focus:outline-none"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+        <input
+          type="text"
+          formControlName="lastName"
+          class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-green-500 focus:outline-none"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+        <input
+          type="email"
+          formControlName="email"
+          class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-green-500 focus:outline-none"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Mot de passe</label>
+        <input
+          type="password"
+          formControlName="password"
+          class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-green-500 focus:outline-none"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">École (facultatif)</label>
+        <input
+          type="text"
+          formControlName="school"
+          class="w-full rounded-xl border border-gray-300 px-4 py-3 focus:ring-2 focus:ring-green-500 focus:outline-none"
+        />
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loading"
+        class="w-full bg-green-500 text-white text-lg font-semibold py-3 rounded-xl hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        S'inscrire
+      </button>
+
+      <p *ngIf="errorMessage" class="text-center text-red-600 font-medium text-sm mt-3">
+        {{ errorMessage }}
+      </p>
+    </form>
+
+    <div class="text-center mt-8">
+      <a
+        routerLink="/login"
+        class="text-green-600 font-semibold hover:underline transition"
+      >
+        Vous avez déjà un compte ? Se connecter
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+
+  

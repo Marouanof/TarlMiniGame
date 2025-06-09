@@ -1,0 +1,381 @@
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating-icon {
+            animation: bounce-slow 3s ease-in-out infinite;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .btn-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .btn-hover:hover {
+            transform: scale(1.05);
+        }
+        
+        .navbar {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+<div class="bg-gradient-to-b from-green-50 via-white to-blue-50">
+    <!-- Floating Icons Background -->
+    <div id="floating-icons" class="fixed inset-0 pointer-events-none overflow-hidden z-0"></div>
+    
+    <!-- Navigation -->
+    <app-nav-bar [publicMode]="true"></app-nav-bar>
+
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 py-12 space-y-20 text-gray-800 pt-20">
+        
+        <!-- Hero Section Enhanced -->
+        <div class="text-center space-y-8 max-w-4xl">
+            <div class="inline-flex items-center px-4 py-2 bg-green-100 rounded-full text-green-700 text-sm font-medium mb-4">
+                🎉 Plus de 10,000 élèves nous font confiance
+            </div>
+            <h1 class="text-6xl md:text-7xl font-extrabold text-green-600 leading-tight">
+                Bienvenue sur
+                <span class="gradient-text"> TaRL Mini-Games</span>
+            </h1>
+            <p class="text-2xl text-gray-600 leading-relaxed">
+                Transformez l'apprentissage des mathématiques en aventure passionnante avec nos jeux interactifs et adaptatifs
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                <a href="/register" class="btn-hover px-10 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold rounded-full shadow-xl">
+                    Commencer Gratuitement 🚀
+                </a>
+                <a href="/demo" class="btn-hover px-10 py-4 border-2 border-green-500 text-green-600 font-semibold rounded-full hover:bg-green-50">
+                    Voir la Démo 📺
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-4xl">
+            <div class="text-center">
+                <div class="text-4xl font-bold text-green-600">
+                    <span id="counter-1">10000</span>+
+                </div>
+                <p class="text-gray-600 mt-2">Élèves Actifs</p>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-blue-600">
+                    <span id="counter-2">200</span>+
+                </div>
+                <p class="text-gray-600 mt-2">Écoles Partenaires</p>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-purple-600">
+                    <span id="counter-3">1000</span>+
+                </div>
+                <p class="text-gray-600 mt-2">Mini-Jeux</p>
+            </div>
+            <div class="text-center">
+                <div class="text-4xl font-bold text-yellow-600">
+                    <span id="counter-4">100</span>%
+                </div>
+                <p class="text-gray-600 mt-2">Satisfaction</p>
+            </div>
+        </div>
+
+        <!-- Features Grid Enhanced -->
+        <section id="features" class="w-full max-w-7xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Pourquoi Choisir TaRL ?</h2>
+                <p class="text-xl text-gray-600">Des fonctionnalités conçues pour maximiser l'apprentissage</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-lg text-center space-y-4 border border-gray-100 hover:border-green-200">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center text-2xl text-white shadow-lg">
+                        🎯
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">Jeux Ciblés</h3>
+                    <p class="text-gray-600 leading-relaxed">Des mini-jeux spécialement conçus pour renforcer les compétences mathématiques essentielles</p>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-lg text-center space-y-4 border border-gray-100 hover:border-green-200">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center text-2xl text-white shadow-lg">
+                        📊
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">Suivi des Progrès</h3>
+                    <p class="text-gray-600 leading-relaxed">Suivez vos performances et visualisez votre progression en temps réel</p>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-lg text-center space-y-4 border border-gray-100 hover:border-green-200">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r from-yellow-400 to-yellow-600 flex items-center justify-center text-2xl text-white shadow-lg">
+                        🏆
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">Récompenses</h3>
+                    <p class="text-gray-600 leading-relaxed">Gagnez des badges et débloquez de nouveaux défis en progressant</p>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-lg text-center space-y-4 border border-gray-100 hover:border-green-200">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center text-2xl text-white shadow-lg">
+                        👥
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">Apprentissage Social</h3>
+                    <p class="text-gray-600 leading-relaxed">Défiez vos amis et apprenez ensemble dans un environnement collaboratif</p>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-lg text-center space-y-4 border border-gray-100 hover:border-green-200">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r from-red-400 to-red-600 flex items-center justify-center text-2xl text-white shadow-lg">
+                        🎮
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">Gamification</h3>
+                    <p class="text-gray-600 leading-relaxed">Transformez l'apprentissage en aventure avec des niveaux et des quêtes</p>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-3xl shadow-lg text-center space-y-4 border border-gray-100 hover:border-green-200">
+                    <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-r from-indigo-400 to-indigo-600 flex items-center justify-center text-2xl text-white shadow-lg">
+                        🧠
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800">IA Adaptative</h3>
+                    <p class="text-gray-600 leading-relaxed">Notre IA s'adapte à votre rythme pour un apprentissage personnalisé</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section id="games" class="w-full max-w-6xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Jeux Populaires</h2>
+                <p class="text-xl text-gray-600">Découvrez nos mini-jeux les plus appréciés</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card-hover bg-white rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-4 text-center">➕</div>
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">Addition Rapide</h3>
+                    <div class="flex justify-between items-center text-sm text-gray-600 mb-4">
+                        <span>👥 2.3k</span>
+                        <span class="px-2 py-1 rounded-full text-xs bg-green-100 text-green-700">Facile</span>
+                    </div>
+                    <button class="w-full py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
+                        Jouer Maintenant
+                    </button>
+                </div>
+                
+                <div class="card-hover bg-white rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-4 text-center">✖️</div>
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">Multiplication Ninja</h3>
+                    <div class="flex justify-between items-center text-sm text-gray-600 mb-4">
+                        <span>👥 1.8k</span>
+                        <span class="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-700">Moyen</span>
+                    </div>
+                    <button class="w-full py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
+                        Jouer Maintenant
+                    </button>
+                </div>
+                
+                <div class="card-hover bg-white rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-4 text-center">🍰</div>
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">Fractions Master</h3>
+                    <div class="flex justify-between items-center text-sm text-gray-600 mb-4">
+                        <span>👥 1.2k</span>
+                        <span class="px-2 py-1 rounded-full text-xs bg-red-100 text-red-700">Difficile</span>
+                    </div>
+                    <button class="w-full py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
+                        Jouer Maintenant
+                    </button>
+                </div>
+                
+                <div class="card-hover bg-white rounded-2xl p-6 shadow-lg">
+                    <div class="text-4xl mb-4 text-center">📐</div>
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">Géométrie Quest</h3>
+                    <div class="flex justify-between items-center text-sm text-gray-600 mb-4">
+                        <span>👥 950</span>
+                        <span class="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-700">Moyen</span>
+                    </div>
+                    <button class="w-full py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors">
+                        Jouer Maintenant
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials" class="w-full max-w-6xl">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Ce Qu'ils Disent de Nous</h2>
+                <p class="text-xl text-gray-600">Témoignages de notre communauté</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card-hover bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="text-4xl mb-4 text-center">👩‍🏫</div>
+                    <p class="text-gray-600 italic mb-6">"TaRL Mini-Games a révolutionné ma façon d'enseigner les mathématiques. Mes élèves sont plus engagés que jamais !"</p>
+                    <div class="text-center">
+                        <p class="font-bold text-gray-800">Marie Dubois</p>
+                        <p class="text-sm text-gray-500">Enseignante</p>
+                    </div>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="text-4xl mb-4 text-center">👨‍💼</div>
+                    <p class="text-gray-600 italic mb-6">"Mon fils de 8 ans adore ces jeux. Il fait des mathématiques sans même s'en rendre compte !"</p>
+                    <div class="text-center">
+                        <p class="font-bold text-gray-800">Pierre Martin</p>
+                        <p class="text-sm text-gray-500">Parent</p>
+                    </div>
+                </div>
+                
+                <div class="card-hover bg-white p-8 rounded-2xl shadow-lg">
+                    <div class="text-4xl mb-4 text-center">👧</div>
+                    <p class="text-gray-600 italic mb-6">"J'avais peur des maths avant, maintenant c'est ma matière préférée grâce à ces jeux amusants !"</p>
+                    <div class="text-center">
+                        <p class="font-bold text-gray-800">Sophie Laurent</p>
+                        <p class="text-sm text-gray-500">Élève</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced CTA -->
+        <div class="text-center space-y-8 bg-gradient-to-r from-green-100 via-blue-50 to-green-100 p-16 rounded-3xl shadow-2xl w-full max-w-5xl border border-green-200">
+            <h2 class="text-4xl font-bold text-green-700">Prêt à Transformer l'Apprentissage ?</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Rejoignez des milliers d'élèves qui découvrent le plaisir d'apprendre les mathématiques
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="/register" class="btn-hover inline-block px-12 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-xl font-semibold rounded-full shadow-xl">
+                    Commencer Maintenant 🎯
+                </a>
+                <a href="/contact" class="btn-hover inline-block px-12 py-4 border-2 border-green-500 text-green-600 text-xl font-semibold rounded-full hover:bg-green-50">
+                    Nous Contacter 📞
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="w-full max-w-6xl border-t border-gray-200 pt-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="text-2xl">🎯</div>
+                        <span class="text-xl font-bold text-green-600">TaRL Mini-Games</span>
+                    </div>
+                    <p class="text-gray-600">Révolutionner l'apprentissage des mathématiques par le jeu.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-800 mb-4">Produit</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="#" class="hover:text-green-600 transition-colors">Fonctionnalités</a></li>
+                        <li><a href="#" class="hover:text-green-600 transition-colors">Tarifs</a></li>
+                        <li><a href="#" class="hover:text-green-600 transition-colors">API</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-800 mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="#" class="hover:text-green-600 transition-colors">Centre d'aide</a></li>
+                        <li><a href="#" class="hover:text-green-600 transition-colors">Contact</a></li>
+                        <li><a href="#" class="hover:text-green-600 transition-colors">Communauté</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-800 mb-4">Entreprise</h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="#" class="hover:text-green-600 transition-colors">À propos</a></li>
+                        <li><a href="#" class="hover:text-green-600 transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-green-600 transition-colors">Carrières</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 pt-8 text-center text-gray-600">
+                <p>&copy; 2024 TaRL Mini-Games. Tous droits réservés.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Animated Counters
+        function animateCounter(elementId, endValue, duration = 2000) {
+            const element = document.getElementById(elementId);
+            const startValue = 0;
+            const startTime = performance.now();
+            
+            function updateCounter(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                const currentValue = Math.floor(progress * endValue);
+                element.textContent = currentValue.toLocaleString();
+                
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounter);
+                }
+            }
+            
+            requestAnimationFrame(updateCounter);
+        }
+
+        // Floating Icons
+        function createFloatingIcons() {
+            const container = document.getElementById('floating-icons');
+            const mathIcons = ['➕', '➖', '✖️', '➗', '🔢', '📐', '📊', '🧮'];
+            
+            for (let i = 0; i < 8; i++) {
+                const icon = document.createElement('div');
+                icon.className = 'floating-icon absolute text-2xl opacity-10';
+                icon.textContent = mathIcons[i];
+                icon.style.left = Math.random() * 100 + '%';
+                icon.style.top = Math.random() * 100 + '%';
+                icon.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(icon);
+            }
+        }
+
+        // Initialize animations when page loads
+        window.addEventListener('load', function() {
+            // Start counters with a slight delay
+            setTimeout(() => {
+                animateCounter('counter-1', 10000);
+                animateCounter('counter-2', 500);
+                animateCounter('counter-3', 50);
+                animateCounter('counter-4', 95);
+            }, 500);
+            
+            // Create floating icons
+            createFloatingIcons();
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</div>

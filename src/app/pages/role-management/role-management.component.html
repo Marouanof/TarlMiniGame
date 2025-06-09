@@ -1,0 +1,135 @@
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg space-y-6">
+
+  <h2 class="text-3xl font-extrabold text-green-700 text-center">Gestion des Rôles</h2>
+
+  <!-- Statistiques globales -->
+  <div *ngIf="!loading && (userRole === 'Administrator' || userRole === 'Principal')" class="mb-4 p-4 bg-green-50 rounded-lg shadow">
+    <h3 class="font-bold text-green-700 mb-2">Statistiques Utilisateurs</h3>
+    <ul class="grid grid-cols-2 gap-x-8 gap-y-1 text-green-800">
+      <li>Total utilisateurs : <span class="font-semibold">{{ getUserStats().total }}</span></li>
+      <li>Principals : <span class="font-semibold">{{ getUserStats().principals }}</span></li>
+      <li>Administrateurs : <span class="font-semibold">{{ getUserStats().administrators }}</span></li>
+      <li>Enseignants : <span class="font-semibold">{{ getUserStats().teachers }}</span></li>
+      <li>Parents : <span class="font-semibold">{{ getUserStats().parents }}</span></li>
+      <li>Élèves : <span class="font-semibold">{{ getUserStats().students }}</span></li>
+      <li>En attente : <span class="font-semibold">{{ getUserStats().pending }}</span></li>
+    </ul>
+  </div>
+
+  <div *ngIf="loading" class="text-center text-green-600 font-semibold py-4">
+    Chargement des utilisateurs...
+  </div>
+
+  <div *ngIf="!loading" class="space-y-4">
+
+    <!-- Filters -->
+    <div class="flex justify-center gap-10 text-green-700 font-medium">
+      <label class="flex items-center space-x-2 cursor-pointer">
+        <input type="radio" name="filter" value="all" [(ngModel)]="filter" (change)="applyFilter()"
+          class="form-radio text-green-500" />
+        <span>Afficher tout</span>
+      </label>
+      <label class="flex items-center space-x-2 cursor-pointer">
+        <input type="radio" name="filter" value="pending" [(ngModel)]="filter" (change)="applyFilter()"
+          class="form-radio text-green-500" />
+        <span>Afficher uniquement en attente</span>
+      </label>
+    </div>
+
+    <!-- Empty -->
+    <div *ngIf="filteredUsers.length === 0" class="text-center text-gray-500 italic py-6">
+      Aucun utilisateur trouvé.
+    </div>
+
+    <!-- Table -->
+    <div *ngIf="filteredUsers.length > 0" class="overflow-x-auto">
+      <div class="flex justify-end mb-2">
+        <button (click)="exportUsersCSV()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Exporter CSV</button>
+      </div>
+      <table class="min-w-full border-collapse border border-green-200 rounded-lg">
+        <thead class="bg-green-100 text-green-800 font-semibold">
+          <tr>
+            <th class="border border-green-300 px-4 py-2 text-left rounded-tl-lg">Nom</th>
+            <th class="border border-green-300 px-4 py-2 text-left">Identifiant Unique</th>
+            <th class="border border-green-300 px-4 py-2 text-left">Rôle</th>
+            <th class="border border-green-300 px-4 py-2 text-left rounded-tr-lg">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-green-200">
+          <tr *ngFor="let user of filteredUsers" class="hover:bg-green-50 transition">
+            <td class="border border-green-300 px-4 py-3 font-medium text-green-900">
+              {{ user.firstName }} {{ user.lastName }}
+            </td>
+            <td class="border border-green-300 px-4 py-3 text-green-800">
+              <ng-container *ngIf="user.role === 'Teacher'">
+                {{ user.email || 'N/A' }}
+              </ng-container>
+              <ng-container *ngIf="user.role === 'Student'">
+                {{ user.playerName || 'N/A' }}
+              </ng-container>
+              <ng-container *ngIf="user.role === 'Parent' && user.password">
+                {{ user.username }}
+              </ng-container>
+            </td>
+            <td class="border border-green-300 px-4 py-3 text-green-700">
+              <ng-container *ngIf="!user.linkedTeacherId">
+                {{ user.role }}
+              </ng-container>
+              <ng-container *ngIf="user.role === 'Student' && user.linkedTeacherId">
+                {{ user.role }} de {{ getLinkedTeacherName(user) }}
+              </ng-container>
+            </td>
+            <td class="border border-green-300 px-4 py-3 text-green-700">
+
+              <!-- Actions for Student -->
+              <ng-container *ngIf="user.role === 'Student'">
+                <div *ngIf="!user.linkedTeacherId" class="flex items-center gap-2">
+                  <select [(ngModel)]="user.tempTeacherId"
+                    class="rounded-md border border-green-300 px-3 py-1 focus:outline-none focus:ring-2 focus:ring-green-400">
+                    <option [ngValue]="null">Sélectionnez un professeur</option>
+                    <option *ngFor="let teacher of teachers" [value]="teacher.uid">
+                      {{ teacher.firstName }} {{ teacher.lastName }}
+                    </option>
+                  </select>
+                  <button
+                    class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md font-semibold disabled:bg-green-300 transition"
+                    [disabled]="!user.tempTeacherId" (click)="linkStudentToTeacher(user.uid, user.tempTeacherId)">
+                    Lier
+                  </button>
+                </div>
+                <div *ngIf="user.linkedTeacherId">
+                  <button
+                    class="bg-red-400 hover:bg-red-500 text-white px-4 py-1 rounded-md font-semibold transition"
+                    (click)="unlinkStudent(user.uid)">
+                    Délier
+                  </button>
+                </div>
+              </ng-container>
+
+              <!-- Actions for Non-Student with admin roles -->
+              <ng-container
+                *ngIf="user.role !== 'Student' && (userRole === 'Administrator' || userRole === 'Principal')">
+                <div class="flex items-center gap-2">
+                  <select [(ngModel)]="user.tempRole"
+                    class="rounded-md border border-green-300 px-3 py-1 focus:outline-none focus:ring-2 focus:ring-green-400">
+                    <option value="Teacher">Teacher</option>
+                    <option value="Parent">Parent</option>
+                    <option *ngIf="userRole === 'Principal'" value="Administrator">Administrator</option>
+                  </select>
+                  <button
+                    class="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded-md font-semibold transition"
+                    (click)="assignRole(user.uid, user.tempRole)">
+                    {{ user.role === 'Pending' ? 'Attribuer rôle' : 'Changer rôle' }}
+                  </button>
+                </div>
+              </ng-container>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
