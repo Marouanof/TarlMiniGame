@@ -2,6 +2,7 @@
   <h2 class="text-2xl font-bold mb-6 text-center text-green-700">Créer un Nouveau Test</h2>
 
   <form [formGroup]="testForm" (ngSubmit)="onSubmit()" novalidate>
+    <!-- Champs existants -->
     <div class="form-group mb-4">
       <label for="testName" class="block mb-1 font-semibold text-gray-700">Nom du test :</label>
       <input
@@ -63,9 +64,42 @@
       </div>
     </div>
 
+    <!-- Nouvelle section pour les jeux -->
+    <div class="form-group mb-6">
+      <label class="block mb-1 font-semibold text-gray-700">Sélection des jeux :</label>
+      <div class="overflow-hidden border border-gray-200 rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Jeu</th>
+              <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Activer</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr *ngFor="let game of games" [class.bg-green-50]="game.isEnabled">
+              <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ game.name }}</td>
+              <td class="px-6 py-4 text-center">
+                <label class="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    [checked]="game.isEnabled"
+                    (change)="toggleGame(game)"
+                    class="w-5 h-5 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                  />
+                  <span class="ml-2 text-sm text-gray-600">
+                    {{ game.isEnabled ? 'Activé' : 'Inactif' }}
+                  </span>
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <button
       type="submit"
-      [disabled]="testForm.invalid"
+      [disabled]="testForm.invalid || !hasEnabledGames()"
       class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 disabled:bg-green-300 transition"
     >
       Créer le test
