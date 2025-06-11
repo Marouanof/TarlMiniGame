@@ -95,6 +95,7 @@ src/
 
 ## ☁️ Structure des données Firebase (Realtime Database)
 
+```json
 {
   "users": {
     "uid": {
@@ -102,7 +103,7 @@ src/
       "lastName": "...",
       "role": "Student | Teacher | Admin | Principal | Parent",
       "linkedTeacherId": "...",
-      "linkedChildrenIds": [...],
+      "linkedChildrenIds": ["..."],
       "password": "...",
       ...
     }
@@ -129,6 +130,7 @@ src/
     }
   }
 }
+```
 
 ---
 
