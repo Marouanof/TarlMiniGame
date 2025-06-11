@@ -37,8 +37,9 @@ Permettre une gestion centralisée d’élèves, de tests et de résultats d’a
 - 🎮 Connexion externe avec **jeux Unity (Android)**
 
 ---
-## Structure détaillée du projet
+## 🧱 Structure détaillée du projet
 
+```text
 src/
 ├── index.html                 # Fichier HTML principal
 ├── main.ts                    # Point d'entrée Angular
@@ -50,42 +51,44 @@ src/
 │   ├── app-routing.module.ts          # Configuration du routing
 │   ├── app.component.*                # Composant principal de l'application
 │   ├── app.config*.ts                 # Fichiers de config client/serveur
-│   ├── app.routes.server.ts          # Routes côté serveur (inutilisé ici)
+│   ├── app.routes.server.ts           # Routes côté serveur (inutilisé ici)
 │
 │   ├── guards/                        # Garde d'authentification
 │   │   └── auth.guard.ts
 │
 │   ├── services/
-│   │   └── auth.service.ts           # Authentification avec Firebase
+│   │   └── auth.service.ts            # Authentification avec Firebase
 │
 │   ├── shared/
-│   │   ├── nav-bar/                  # Barre de navigation supérieure
-│   │   └── sidebar/                  # Menu latéral
+│   │   ├── nav-bar/                   # Barre de navigation supérieure
+│   │   └── sidebar/                   # Menu latéral
 │
 │   ├── pages/
-│   │   ├── login/                    # Page de connexion
-│   │   ├── register/                 # Page d'inscription
-│   │   ├── dashboard/                # Vue principale après connexion
-│   │   ├── create-parent/            # Création de comptes parents
-│   │   ├── student-list/             # Liste des étudiants
-│   │   ├── student-registration/     # Formulaire d'inscription étudiant
-│   │   ├── test-creation/            # Création de tests
-│   │   ├── test-edition/             # Édition de tests
-│   │   ├── test-list/                # Liste des tests
-│   │   ├── test-results/             # Résultats des jeux Unity
-│   │   ├── role-management/          # Gestion des rôles
-│   │   ├── teacher-profile/          # Profil enseignant
-│   │   ├── home/                     # Page d'accueil
-│   │   └── user-stats/               # Statistiques par utilisateur
+│   │   ├── login/                     # Page de connexion
+│   │   ├── register/                  # Page d'inscription
+│   │   ├── dashboard/                 # Vue principale après connexion
+│   │   ├── create-parent/             # Création de comptes parents
+│   │   ├── student-list/              # Liste des étudiants
+│   │   ├── student-registration/      # Formulaire d'inscription étudiant
+│   │   ├── test-creation/             # Création de tests
+│   │   ├── test-edition/              # Édition de tests
+│   │   ├── test-list/                 # Liste des tests
+│   │   ├── test-results/              # Résultats des jeux Unity
+│   │   ├── role-management/           # Gestion des rôles
+│   │   ├── teacher-profile/           # Profil enseignant
+│   │   ├── home/                      # Page d'accueil
+│   │   └── user-stats/                # Statistiques par utilisateur
 │
 │   ├── types/
-│   │   └── mini-game-types.ts        # Types utilisés dans les mini-jeux
+│   │   └── mini-game-types.ts         # Types utilisés dans les mini-jeux
 │
 │   └── utils/
-│       └── password-utils.ts         # Gestion de hachage/validation mot de passe
+│       └── password-utils.ts          # Gestion de hachage/validation mot de passe
 
 └── assets/
-    └── images/                       # Image de fond, logos…
+    └── images/                        # Image de fond, logos…
+```
+
 
 
 ---
