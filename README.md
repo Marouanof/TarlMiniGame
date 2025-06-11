@@ -38,24 +38,6 @@ Permettre une gestion centralisée d’élèves, de tests et de résultats d’a
 
 ---
 
-## 📁 Structure du projet
-
-src/
-├── app/
-│ ├── pages/ # Pages principales (login, dashboard, résultats, etc.)
-│ ├── shared/ # Composants partagés (navbar, sidebar, etc.)
-│ ├── services/ # Communication avec Firebase
-│ ├── guards/ # Accès selon rôle
-│ └── types/ # Types et modèles de données
-├── assets/ # Ressources statiques
-└── environments/ # Configuration des environnements
-
-yaml
-Copier
-Modifier
-
----
-
 ## 🚀 Lancement du projet
 
 ### Prérequis
