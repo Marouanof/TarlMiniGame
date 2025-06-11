@@ -1,69 +1,65 @@
 <app-nav-bar [publicMode]="true"></app-nav-bar>
 
-<div class="max-w-md mx-auto mt-16 bg-white p-8 rounded-3xl shadow-2xl font-sans text-gray-800">
+<div class="min-h-screen flex items-center justify-center bg-green-50 px-4">
+  <div class="w-full max-w-md bg-white/80 rounded-3xl shadow-2xl border border-green-100 backdrop-blur-md p-10 font-sans">
+    <h2 class="text-3xl text-center font-bold gradient-text mb-10 select-none">Welcome back!</h2>
 
-  <h2 class="text-center text-4xl font-extrabold text-green-600 mb-10">Content de te revoir !</h2>
-
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-    <!-- Email -->
-    <label for="email" class="block text-sm font-semibold mb-2">Adresse Email</label>
-    <input
-      id="email"
-      type="email"
-      formControlName="email"
-      placeholder="toi@example.com"
-      autocomplete="email"
-      class="w-full px-4 py-3 mb-6 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200"
-    />
-
-    <!-- Password -->
-    <label for="password" class="block text-sm font-semibold mb-2">Mot de passe</label>
-    <input
-      id="password"
-      type="password"
-      formControlName="password"
-      placeholder="••••••••"
-      autocomplete="current-password"
-      class="w-full px-4 py-3 mb-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200"
-    />
-
-    <!-- Forgot password -->
-    <div class="text-right mb-6">
-      <a
-        (click)="resetPassword()"
-        role="button"
-        tabindex="0"
-        class="text-green-600 font-semibold hover:underline cursor-pointer"
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-semibold mb-2">Email Address</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          class="w-full px-4 py-3 mb-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 shadow-sm"
+        />
+      </div>
+      <!-- Password -->
+      <div>
+        <label for="password" class="block text-sm font-semibold mb-2">Password</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+          autocomplete="current-password"
+          class="w-full px-4 py-3 mb-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition duration-200 shadow-sm"
+        />
+      </div>
+      <!-- Forgot password -->
+      <div class="text-right mb-2">
+        <a
+          (click)="resetPassword()"
+          role="button"
+          tabindex="0"
+          class="text-green-600 font-semibold hover:underline cursor-pointer"
+        >
+          Forgot password?
+        </a>
+      </div>
+      <!-- Submit -->
+      <button
+        type="submit"
+        [disabled]="loading"
+        class="w-full py-3 rounded-full font-bold text-lg transition duration-200 text-white bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 shadow-xl btn-hover disabled:bg-green-300 disabled:cursor-not-allowed"
       >
-        Mot de passe oublié ?
+        Login
+      </button>
+      <!-- Error -->
+      <p *ngIf="errorMessage" class="mt-6 text-center text-red-600 font-semibold">
+        ⚠ {{ errorMessage }}
+      </p>
+    </form>
+    <!-- Register -->
+    <div class="mt-8 text-center">
+      <a routerLink="/register" class="text-green-600 font-semibold hover:underline">
+        Don't have an account? Sign up here
       </a>
     </div>
-
-    <!-- Submit -->
-    <button
-  type="submit"
-  [disabled]="loading"
-  class="w-full py-3 rounded-full font-bold text-lg transition duration-200
-         text-white
-         bg-green-500 hover:bg-green-600
-         disabled:bg-green-300 disabled:cursor-not-allowed"
->
-  Connexion
-</button>
-    <!-- Error -->
-    <p *ngIf="errorMessage" class="mt-6 text-center text-red-600 font-semibold">
-      ⚠ {{ errorMessage }}
-    </p>
-  </form>
-
-  <!-- Register -->
-  <div class="mt-8 text-center">
-    <a routerLink="/register" class="text-green-600 font-semibold hover:underline">
-      Pas encore de compte ? Inscris-toi ici
-    </a>
   </div>
-
 </div>
 
 

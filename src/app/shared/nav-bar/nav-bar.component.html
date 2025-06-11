@@ -1,15 +1,32 @@
-<nav style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: #fff; border-bottom: 1px solid #eee;">
-  <a routerLink="/home" style="font-weight: bold; font-size: 1.5rem; text-decoration: none; color: #222;">TaRL Mini-Games</a>
-  <div *ngIf="publicMode">
-    <a routerLink="/login" style="margin-right: 16px; text-decoration: none; color: #222;">Connexion</a>
-    <a routerLink="/register" style="text-decoration: none; color: #222;">S'inscrire</a>
+<nav class="navbar flex items-center justify-between px-6 py-3 shadow-lg bg-white/80 backdrop-blur-md border-b border-gray-100 w-full top-0 left-0 right-0 z-20">
+  <a routerLink="/home" class="gradient-text text-2xl font-extrabold no-underline tracking-tight select-none">
+    ZA2ID
+  </a>
+
+  <div *ngIf="publicMode" class="flex space-x-4">
+    <a routerLink="/login" class="px-5 py-2 rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold shadow hover:from-green-600 hover:to-blue-600 transition btn-hover">
+      Login
+    </a>
+    <a routerLink="/register" class="px-5 py-2 rounded-full border-2 border-green-500 text-green-600 font-semibold bg-white hover:bg-green-50 hover:text-green-700 transition btn-hover">
+      Sign Up
+    </a>
   </div>
-  <div *ngIf="!publicMode">
-    <button (click)="toggleMenu()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer;">⚙</button>
-    <div *ngIf="menuOpen" style="position: absolute; right: 0; margin-top: 8px; background: #fff; border: 1px solid #eee; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-      <button (click)="logout()" style="padding: 8px 16px; width: 100%; background: none; border: none; text-align: left; cursor: pointer;">Log Out</button>
+
+  <div *ngIf="!publicMode" class="relative">
+    <button (click)="toggleMenu()"
+      class="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white text-xl shadow hover:from-green-500 hover:to-blue-600 transition focus:outline-none">
+      <span class="material-icons">account_circle</span>
+    </button>
+    <div *ngIf="menuOpen"
+      class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-2xl shadow-xl z-30 overflow-hidden animate-fade-in">
+      <button (click)="logout()"
+        class="w-full text-left px-5 py-3 hover:bg-green-50 text-green-700 font-semibold cursor-pointer bg-transparent border-none transition">
+        Log out
+      </button>
     </div>
   </div>
 </nav>
+
+
 
   
